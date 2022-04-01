@@ -5,7 +5,7 @@ const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const passwordHash = require('../middleware/passwordhash');
-const fetchUser = require('../middleware/fetchUser');
+const fetchUser = require('../middleware/fetchuser');
 const JWT_SECRET = "Mynameisdeepak";
 
 router.post('/createUser', [
