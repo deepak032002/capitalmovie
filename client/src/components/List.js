@@ -66,7 +66,7 @@ const List = (props) => {
                                         <div className="cp_movie_card" key={i}>
                                             <NavLink to={`/infopage/${e.id}`}>
                                                 <CircularProgress percent={`${Math.floor(e.vote_average * 10)}%`} />
-                                                <img src={`https://image.tmdb.org/t/p/original${e.poster_path}`} alt="card" />
+                                                <img src={`https://image.tmdb.org/t/p/w500${e.poster_path}`} alt="card" />
                                             </NavLink>
                                         </div>
                                     )
