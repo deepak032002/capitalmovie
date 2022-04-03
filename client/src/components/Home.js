@@ -7,14 +7,14 @@ import List from './List';
 const Home = () => {
 
     return (
-        <div>
+        <>
             <Header />
-            <Slider />
-            <List type="Popular Movies" link="Popular" />
-            <List type="Top Rated Movies" link="Toprated" />
-            <List type="Up Coming Movies" link="Upcoming" />
-            <Footer />
-        </div>
+            {/* <Slider /> */}
+            {/* <List type="Popular Movies" link="Popular" /> */}
+            {/* <List type="Top Rated Movies" link="Toprated" /> */}
+            {/* <List type="Up Coming Movies" link="Upcoming" /> */}
+            {/* <Footer /> */}
+        </>
     )
 }
 

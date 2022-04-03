@@ -15,13 +15,12 @@ function App() {
     <>
       <div className="cp_bg_color">
         <Routes>
-          <Route path="/" element={<Navigate to="/discover" />}></Route>
-          <Route path="/discover" element={<Home />}></Route>
-          <Route path="/discover/popular/" element={<Popular />}></Route>
-          <Route path="/discover/toprated/" element={<Toprated />}></Route>
-          <Route path="/discover/upcoming/" element={<Upcoming />}></Route>
-          <Route path="/discover/favourites/" element={<Favourite />}></Route>
-          <Route path="/discover/recommendation/" element={<Navigate to="/discover/popular" />}></Route>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/popular" element={<Popular />}></Route>
+          <Route path="/toprated" element={<Toprated />}></Route>
+          <Route path="/upcoming" element={<Upcoming />}></Route>
+          <Route path="/favourites" element={<Favourite />}></Route>
+          <Route path="/recommendation" element={<Navigate to="/popular" />}></Route>
           <Route path="/infopage/:id" element={<MovieDetailPage />}></Route>
           <Route path="/search" element={<Search />}></Route>
           <Route path="/login" element={<Login />}></Route>
