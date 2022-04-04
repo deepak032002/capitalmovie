@@ -1,7 +1,8 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
+import $ from 'jquery'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -22,6 +23,15 @@ const Header = () => {
       setIsMenuOpen(true)
     }
   }
+
+  useEffect(() => {
+    const header = document.querySelector('cp_header');
+
+    
+
+  }, [])
+  
+
   return (
     <>
       <div className="cp_header d-flex align-items-center justify-content-between px-2 px-md-0">

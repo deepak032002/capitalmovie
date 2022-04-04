@@ -9,11 +9,11 @@ const Home = () => {
     return (
         <>
             <Header />
-            {/* <Slider /> */}
-            {/* <List type="Popular Movies" link="Popular" /> */}
-            {/* <List type="Top Rated Movies" link="Toprated" /> */}
-            {/* <List type="Up Coming Movies" link="Upcoming" /> */}
-            {/* <Footer /> */}
+            <Slider />
+            <List type="Popular Movies" link="Popular" />
+            <List type="Top Rated Movies" link="Toprated" />
+            <List type="Up Coming Movies" link="Upcoming" />
+            <Footer />
         </>
     )
 }

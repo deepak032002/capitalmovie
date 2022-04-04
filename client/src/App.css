@@ -43,8 +43,13 @@
 
 .cp_header {
   height: 3rem;
-  background-color: var(--box-color--);
+  background-color: transparent;
   color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
 }
 
 .cp_logo_wrapper p {
@@ -64,21 +69,57 @@
 /* Slider Css */
 
 .cp_home_slider {
+  height: 100%;
+}
+
+.slider_loading {
+  width: 100%;
   height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  background-color: #333;
+}
+
+.slider_loading::before {
+  content: "";
+  height: 110px;
+  display: block;
+  background-color: #ededed;
+  box-shadow: -48px 78px 0 -48px #ededed, -51px 102px 0 -51px #ededed;
+}
+
+.slider_loading::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  animation: slider_load 1s infinite linear;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#00ffffff", endColorstr="#00ffffff",GradientType=1 );
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, .1) 30%,
+    rgba(255, 255, 255, 0) 81%
+  );
+}
+
+@keyframes slider_load {
+  0% {
+    transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(100%, 0, 0);
+  }
 }
 
 .cp_home_slider .background_image {
   box-shadow: inset 0 0 0 50rem rgb(0 0 0 / 53%);
   overflow: hidden;
-}
-
-.slides {
-  display: flex;
-  width: 300%;
-}
-
-.first {
-  margin-left: 0;
+  background-size: cover;
+  height: 100%;
+  background-repeat: no-repeat;
 }
 
 .movie_poster img {
@@ -434,10 +475,14 @@
 /* media css at 768px */
 
 @media screen and (max-width: 992px) {
-  /* Slider Css */
-
   html {
     font-size: 65.5%;
+  }
+  /* Slider Css */
+
+  .rating img {
+    width: auto;
+    height: 2.7rem;
   }
 
   .title {
@@ -445,11 +490,16 @@
   }
 
   .overview {
-    padding: 0 2rem;
+    padding: 1rem 4rem;
   }
 
   .cp_home_slider {
-    height: calc(100vh - 27rem);
+    height: 30rem;
+  }
+
+  .cp_home_slider .background_image {
+    background-size: cover;
+    height: 100%;
   }
 
   /* Header */
@@ -464,7 +514,7 @@
     transition: 0.6%;
   }
 
-  .header_open{
+  .header_open {
     transition: 0.6s;
     height: 100%;
   }

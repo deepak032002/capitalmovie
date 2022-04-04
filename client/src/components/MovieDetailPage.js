@@ -101,7 +101,9 @@ const MovieDetailPage = () => {
 
                         <div className="col-6 justify-content-center d-none d-lg-flex">
                             <div className="movie_poster rounded-3 overflow-hidden cursor-pointer position-relative">
-                                <p className="position-absolute left-0 bottom-0 text-white text-center w-100 text-capitalize bg-success mb-0">released</p>
+                                <p className={`position-absolute left-0 bottom-0 text-white text-center w-100 text-capitalize bg-${new Date(results.release_date) <= new Date() ? 'success' : 'danger'} mb-0`}>{
+                                    new Date(results.release_date) <= new Date() ? 'released' : 'unreleased'
+                                }</p>
                                 <img src={`https://image.tmdb.org/t/p/w500${results.poster_path}`} alt="poster_image" />
                             </div>
                         </div>
@@ -129,9 +131,9 @@ const MovieDetailPage = () => {
                                     <img className="mx-1" src="../images/imdb.png" alt="icon by icon8" /> {results.vote_average} ratings
                                 </span>
 
-                               {
+                                {
                                     localStorage.getItem('token') ? <button onClick={handleLike} className="mx-2 like_button text-white cursor-pointer"> {isLike ? <FavoriteIcon sx={{ color: 'red' }} /> : <FavoriteBorderIcon />}</button> : <></>
-                               } 
+                                }
                             </div>
                             <p className="overview pe-lg-3 text-white">{results.overview}</p>
                         </div>

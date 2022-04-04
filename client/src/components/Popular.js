@@ -20,7 +20,7 @@ const Popular = () => {
             return;
         }
 
-        const res = await axios.get(`/api/getCompletePopularList`, {
+        const res = await axios.get(`/api/getCompleteTopratedList`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -43,12 +43,12 @@ const Popular = () => {
                 }
             })
             setResults(res.data)
-            // eslint-disable-next-line no-unused-expressions
-            setPage(()=>{page + 1});
+            setPage(page + 1);
         }
 
         firstData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
@@ -71,18 +71,23 @@ const Popular = () => {
                     >
                         {
                             results.map((e, i) => {
-                                return (
-                                    <>
-                                        <div className="col-lg-3 col-md-6 col-12 d-flex justify-content-center align-items-center">
-                                            <div className="cp_movie_card">
-                                                <NavLink to={`/infopage/${e.id}`}>
-                                                    <CircularProgress percent={`${Math.floor(e.vote_average * 10)}%`} />
-                                                    <img src={`https://image.tmdb.org/t/p/original${e.poster_path}`} alt="card" />
-                                                </NavLink>
+                                if (e.poster_path) {
+                                    return (
+                                        <>
+                                            <div key={i} className="col-lg-3 col-md-6 col-12 d-flex justify-content-center align-items-center">
+                                                <div className="cp_movie_card">
+                                                    <NavLink to={`/infopage/${e.id}`}>
+                                                        <CircularProgress percent={e.vote_average} />
+                                                        <img src={`https://image.tmdb.org/t/p/w500${e.poster_path}`} alt="card" />
+                                                    </NavLink>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </>
-                                )
+                                        </>
+                                    )
+                                }
+                                else {
+                                    return null
+                                }
                             })
                         }
                     </InfiniteScroll>
