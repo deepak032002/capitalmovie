@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
-import $ from 'jquery'
+// import $ from 'jquery'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -25,7 +25,7 @@ const Header = () => {
   }
 
   useEffect(() => {
-    const header = document.querySelector('cp_header');
+    // const header = document.querySelector('cp_header');
 
     
 

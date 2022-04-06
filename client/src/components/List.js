@@ -54,7 +54,7 @@ const List = (props) => {
                     <div className="cp_list_movie_container py-2">
                         <span className="d-flex justify-content-between px-1 w-100">
                             <p className="mb-0 text-white h5 text-poppins ms-4">{props.type}</p>
-                            <NavLink className="text-white text-poppins text-decoration-none" to={`/discover/${(props.link).toLowerCase()}`}>More<ArrowForwardIosIcon /></NavLink>
+                            <NavLink className="text-white text-poppins text-decoration-none" to={`/${(props.link).toLowerCase()}`}>More<ArrowForwardIosIcon /></NavLink>
                         </span>
 
                         <div className="list_movie_scroll">
