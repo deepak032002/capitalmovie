@@ -94,9 +94,9 @@ const MovieDetailPage = () => {
         </div>
     } else {
         return (
-            <div className="bg-black">
+            <>
                 <Header />
-                <div className="backdrop_image d-flex justify-content-center align-items-center text-poppins" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${results.backdrop_path})`, backgroundSize: '100vw 100vh', height: 'calc(100vh - 3rem)', backgroundRepeat: 'no-repeat' }}>
+                <div className="backdrop_image d-flex justify-content-center align-items-center text-poppins" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${results.backdrop_path})` }}>
                     <div className="row g-0 w-100">
 
                         <div className="col-6 justify-content-center d-none d-lg-flex">
@@ -140,8 +140,9 @@ const MovieDetailPage = () => {
                     </div>
                 </div>
 
-                <div className="cast my-2">
-                    <p className="mb-0 text-white h5 text-poppins ms-4">Cast</p>
+                <div className="cast mt-2">
+                    <p className=" my-2 text-white h5 text-poppins ms-4">Cast</p>
+                    <hr className="bg-white mt-0" />
                     <div className="cast_list w-100 d-flex">
                         {
                             results.credits.cast.map((e, i) => {
@@ -164,8 +165,9 @@ const MovieDetailPage = () => {
                     </div>
                 </div>
 
-                <div className="video_container my-2">
+                <div className="video_container mt-2">
                     <p className="text-white h5 text-poppins ms-4 my-3">Videos</p>
+                    <hr className="bg-white mt-0" />
                     <div className="video_box d-flex">
                         {
                             results.results.map((e, i) => {
@@ -184,15 +186,15 @@ const MovieDetailPage = () => {
                     </div>
                 </div>
 
-                <div className="reviews text-poppins text-white">
-                    <p className="text-center h2 my-3 fw-bolder">Reviews</p>
-
+                <div className="reviews mt-2 text-poppins text-white">
+                    <p className="text-center h2 mt-2 fw-bolder">Reviews</p>
+                    <hr className="bg-white mt-0" />
                     {
                         reviews.map((review, i) => {
                             const url = `${review.author_details.avatar_path}`
 
                             return (
-                                <div key={i} className="review_container my-3 p-2 mx-4">
+                                <div key={i} className="review_container mt-2 p-2 mx-4">
                                     <p className="author"><img className="profile mx-1" src={url.substring(1, url.length - 1)} alt="" />{review.author}</p>
                                     <p className="content text-capitalize">{review.content}</p>
                                 </div>
@@ -202,10 +204,11 @@ const MovieDetailPage = () => {
                 </div>
 
                 <div className="recommendation">
-                    <List type="Movies Recommdation" id={id} link="Recommendation" />
+                    {/* <List type="Movies Recommdation" id={id} link="Recommendation" /> */}
                 </div>
+
                 <Footer />
-            </div>
+            </>
         )
     }
 }

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
-import '../Swiper.css'
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";

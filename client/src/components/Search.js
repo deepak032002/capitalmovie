@@ -30,8 +30,8 @@ const Search = () => {
     }
     return (
         <>
-            <Header />
             <div className="search_container bg-dark">
+                <Header />
                 <div className="searchbar">
                     <form method='GET' onSubmit={fetchData}>
                         <div className="wrapper">
@@ -47,18 +47,16 @@ const Search = () => {
                                         data.results.length === 0 ? <p className="text-center text-white text-poppins h3">Nothing Here Search....</p> :
                                             <>
                                                 <div className="row">
-
                                                     {
                                                         data.results.map((e, i) => {
-
                                                             if (e.backdrop_path !== null) {
                                                                 return (
                                                                     <>
                                                                         <div key={i} className="col-lg-3 col-md-6 col-12 d-flex justify-content-center align-items-center">
-                                                                            <div className="cp_movie_card">
+                                                                            <div className="cp_search_movie_card">
                                                                                 <NavLink to={`/infopage/${e.id}`}>
-                                                                                    <CircularProgress percent={`${Math.floor(e.vote_average * 10)}%`} />
-                                                                                    <img src={`https://image.tmdb.org/t/p/original${e.poster_path}`} alt="card" />
+                                                                                    <CircularProgress percent={e.vote_average} />
+                                                                                    <img src={`https://image.tmdb.org/t/p/w500${e.poster_path}`} alt="card" />
                                                                                 </NavLink>
                                                                             </div>
                                                                         </div>
@@ -73,7 +71,6 @@ const Search = () => {
                                             </>
                                     }
                                 </>
-
                         }
                     </div>
                 </div>

@@ -40,9 +40,12 @@ const List = (props) => {
 
     if (results.length === 0) {
         return (
-            <div className=" bg-black py-1">
-                <div className="cp_popular_movie_container py-2 d-flex justify-content-center">
-                    {isLoad ? <p className="mb-0 text-white h3 text-poppins"><Loader /></p> : <p className="mb-0 text-white text-center h3 text-poppins">Empty</p>}
+            <div className="py-1">
+                <div className="cp_list_movie_container_loader py-2 d-flex justify-content-center">
+                    {/* {isLoad ?  : <p className="mb-0 text-white text-center h3 text-poppins">Empty</p>} */}
+                    <div className="list_loader h-100 w-100">
+
+                    </div>
                 </div>
             </div>
         )
@@ -50,10 +53,11 @@ const List = (props) => {
 
         return (
             <>
-                <div className=" bg-black py-1">
+                <div className="py-1">
                     <div className="cp_list_movie_container py-2">
                         <span className="d-flex justify-content-between px-1 w-100">
                             <p className="mb-0 text-white h5 text-poppins ms-4">{props.type}</p>
+                            <hr className="bg-white mt-0" />
                             <NavLink className="text-white text-poppins text-decoration-none" to={`/${(props.link).toLowerCase()}`}>More<ArrowForwardIosIcon /></NavLink>
                         </span>
 

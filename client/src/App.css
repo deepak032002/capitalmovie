@@ -25,6 +25,15 @@
   --box-color--: #242424;
 }
 
+.cp_btn {
+  background: red;
+  border: none;
+  border-radius: 2rem;
+  line-height: 2rem;
+  height: 2rem;
+  width: 7rem;
+}
+
 .text-poppins {
   font-family: "Poppins", sans-serif;
 }
@@ -43,19 +52,21 @@
 
 .cp_header {
   height: 3rem;
-  background-color: transparent;
-  color: #fff;
   position: fixed;
   top: 0;
-  left: 0;
-  z-index: 2;
   width: 100%;
+  z-index: 999;
 }
 
-.cp_logo_wrapper p {
+.list_wrapper ul {
+  display: flex;
+}
+
+.cp_logo_wrapper {
   color: red;
   font-family: var(--rum-roisin-font--);
   letter-spacing: 3px;
+  font-size: 1.5rem;
 }
 
 /* Footer Css */
@@ -100,9 +111,19 @@
   background: linear-gradient(
     to right,
     rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, .1) 30%,
+    rgba(255, 255, 255, 0.1) 30%,
     rgba(255, 255, 255, 0) 81%
   );
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper_container {
+  height: 100vh;
+  cursor: grab;
 }
 
 @keyframes slider_load {
@@ -185,6 +206,46 @@
 
 .cp_list_movie_container {
   background-color: var(--box-color--);
+  overflow-x: hidden;
+}
+
+.cp_list_movie_container_loader {
+  height: 23rem;
+  background-color: var(--box-color--);
+}
+
+.cp_list_movie_container_loader::before {
+  content: "";
+  height: 110px;
+  display: block;
+  background-color: #ededed;
+  box-shadow: -48px 78px 0 -48px #ededed, -51px 102px 0 -51px #ededed;
+}
+
+.cp_list_movie_container_loader::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  animation: list_load 1s infinite linear;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#00ffffff", endColorstr="#00ffffff",GradientType=1 );
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 30%,
+    rgba(255, 255, 255, 0) 81%
+  );
+}
+
+@keyframes list_load {
+  0% {
+    transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(100%, 0, 0);
+  }
 }
 
 .list_movie_scroll {
@@ -261,15 +322,18 @@
 
 .backdrop_image {
   box-shadow: inset 0 -26rem 10rem 0 #000000e5;
+  height: 100vh;
 }
 
 .cast {
   background-color: var(--box-color--);
+  display: flex;
+  flex-direction: column;
 }
 
 .cast_card {
   height: 21rem;
-  padding: 10px 10px;
+  padding: 0 10px;
 }
 
 .cast_card img {
@@ -313,6 +377,8 @@
 
 .video_container {
   background-color: var(--box-color--);
+  display: flex;
+  flex-direction: column;
 }
 
 .video_box {
@@ -338,8 +404,12 @@
   background: #353535;
 }
 
+.reviews {
+  background-color: var(--box-color--);
+}
+
 .review_container {
-  box-shadow: 0 0 10px 0 #fff;
+  /* box-shadow: 0 0 10px 0 #fff; */
 }
 
 .review_container .content {
@@ -372,10 +442,35 @@
 /* Search Page Css */
 
 .search_container {
-  height: calc(100vh - 3rem);
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
+
+.search_container::-webkit-scrollbar {
+  display: none;
+}
+
+.cp_search_movie_card {
+  height: 21rem;
+  padding: 10px 0;
+  display: flex;
+  position: relative;
+}
+
+.cp_search_movie_card a {
+  width: 15rem;
+  height: 20rem;
+}
+
+.cp_search_movie_card a img {
+  width: inherit;
+  height: inherit;
+}
+
 .searchbar {
   height: 100%;
+  transform: translateY(3rem);
 }
 
 .searchbar form {
@@ -493,6 +588,10 @@
     padding: 1rem 4rem;
   }
 
+  .swiper_container {
+    height: 100%;
+  }
+
   .cp_home_slider {
     height: 30rem;
   }
@@ -503,19 +602,49 @@
   }
 
   /* Header */
-  .cp_mobile_menu {
+  .list_wrapper {
+    position: absolute;
+    top: 3rem;
+    left: 0;
     width: 100%;
-    background-color: var(--box-color--);
-  }
-
-  .header_close {
     height: 0rem;
+    transition: 0.6s;
     overflow: hidden;
-    transition: 0.6%;
+    display: flex;
+    justify-content: center;
+    background-color: var(--box-color--);
+    z-index: 999;
   }
 
-  .header_open {
+  .list_wrapper ul {
+    display: block;
+  }
+
+  .list_wrapper ul li {
+    margin: 2rem 0;
+    justify-content: center;
+  }
+
+  #menu_trigger_btn:checked ~ .list_wrapper {
     transition: 0.6s;
-    height: 100%;
+    height: 25rem;
+  }
+
+  /* Movie Detail Page */
+
+  .backdrop_image {
+    height: 30rem;
+    background-size: cover;
+  }
+
+  /* Search Page Css */
+
+  .cp_search_movie_card {
+    height: auto;
+  }
+
+  .cp_search_movie_card a {
+    width: 25rem;
+    height: auto;
   }
 }

@@ -12,7 +12,7 @@ const Home = () => {
             <Slider />
             <List type="Popular Movies" link="Popular" />
             <List type="Top Rated Movies" link="Toprated" />
-            <List type="Up Coming Movies" link="Upcoming" />
+            <List type="Up Coming Movies" link="Upcoming" /> 
             <Footer />
         </>
     )

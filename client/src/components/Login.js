@@ -54,7 +54,7 @@ const Login = () => {
             </div>
             <button type="submit">Login</button>
           </form>
-          <p className="my-3" style={{ fontSize: '.7rem' }}>Registerd : <NavLink to="/signup">If not Account</NavLink></p>
+          <p className="my-3" style={{ fontSize: '.7rem' }}><NavLink to="/signup" className="text-decoration-none">If You have not Account! Click here</NavLink></p>
         </div>
       </div>
       <Footer />
