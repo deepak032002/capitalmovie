@@ -13,7 +13,6 @@ router.get('/getTrendingMovie', async (req, res) => {
         res.status(200).json({ data: res_data.data.results.slice(0, 10) });
 
     } catch (error) {
-        console.log(`Error : ${error}`);
         res.status(500).send(error);
     }
 
@@ -33,7 +32,6 @@ router.get('/getVideo/:videoId', async (req, res) => {
 })
 
 router.get('/getPopular/', async (req, res) => {
-    console.log(req.headers.page);
     try {
 
         const url = `${apiConfig.base_url}movie/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`
@@ -187,7 +185,6 @@ router.get('/getCompletePopularList/', async (req, res) => {
 
     try {
         const get_complete_popular_list_url = `${apiConfig.base_url}movie/popular?api_key=${process.env.API_KEY}&language=en-US&page=${req.headers.page}`
-        console.log(get_complete_popular_list_url);
         const fetch_popular_complete_data = await axios.get(get_complete_popular_list_url, {
             method: 'GET',
             headers: {
@@ -254,72 +251,6 @@ router.get('/search', async (req, res) => {
     }
 })
 
-router.post('/like/:id', async (req, res) => {
-    try {
-        let dbres = await Id.findOne({ id: req.params.id });
-        dbres = await Id({ id: req.params.id });
-        dbres.save();
-        res.status(200).json({ like: true, id: req.params.id })
-    } catch (error) {
-        res.status(500).send(error)
-    }
-})
-
-
-router.post('/unlike/:id', async (req, res) => {
-    let id = req.params.id;
-
-    const dbres = await Id.findOneAndDelete({ id: id });
-
-    res.status(200).json({ like: false, id: dbres.id })
-
-})
-
-router.get('/getlike/:id', async (req, res) => {
-    let id = req.params.id;
-    const dbres = await Id.findOne({ id: id });
-
-    if (dbres) {
-        return res.status(200).json({ like: true, id: dbres.id })
-    }
-
-    return res.status(200).json({ like: false })
-})
-
-
-router.get('/getfav', async (req, res) => {
-
-    try {
-
-        let dbres = await Id.find();
-
-        let movie_data = [];
-
-        const fetch_movie_id = async (e) => {
-            const datares = await axios.get(`${apiConfig.base_url}movie/${e.id}?api_key=${process.env.API_KEY}&language=en-US`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-
-            movie_data.push(datares.data)
-        }
-
-        if (dbres) {
-
-            dbres.map((e) => {
-                return fetch_movie_id(e)
-            })
-
-            return res.status(200).json({ success: true, data: movie_data })
-        }
-
-        return res.send(200).json({ success: false, data: dbres });
-    } catch (error) {
-        res.status(500).send(error)
-    }
-
-})
+// 17 api used here
 
 module.exports = router;

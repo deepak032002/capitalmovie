@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import Header from './Header'
-import List from './List'
+// import List from './List'
 import Footer from './Footer'
 import Loader from './Loader'
-import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 
 const MovieDetailPage = () => {
@@ -17,36 +17,50 @@ const MovieDetailPage = () => {
     const [reviews, setReviews] = useState([])
     const [isLike, setIsLike] = useState(false)
     const [recommendation, setRecommendation] = useState([])
+    const [comment, setComment] = useState('');
 
-    const handleLike = async () => {
-
-        const data = {
-            id: id
-        }
+    const handleLike = async (e) => {
+        e.preventDefault();
 
         if (isLike) {
-
-            const res = await axios.post(`/api/unlike/${id}`, JSON.stringify(data), {
-                methods: 'POST',
+            const res = await axios.post(`/likeapi/unlike/${id}`, {}, {
+                method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
-                }
+                    authtoken: localStorage.getItem('token')
+                },
             });
 
-            setIsLike(res.data.like)
+            setIsLike(res.data.success)
 
         } else {
-            const res = await axios.post(`/api/like/${id}`, {
-                methods: 'POST',
+            const res = await axios.post(`/likeapi/doLike/${id}`, {
+                poster_path: results.poster_path,
+                vote_average: results.vote_average,
+            }, {
+                method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    authtoken: localStorage.getItem('token')
                 }
             });
-            setIsLike(res.data.like)
+
+            setIsLike(res.data.success)
         }
+    }
 
+    const commentSubmit = async (e) => {
+        e.preventDefault();
 
-        // console.log(res.data);
+        const res = await axios.post("/comment/postComments", {
+            "message": comment,
+            "movieId": id,
+        }, {
+            method: "POST",
+            headers: {
+                authtoken: localStorage.getItem("token")
+            }
+        })
+
+        setReviews(reviews.concat(res.data.comment))
     }
 
     useEffect(() => {
@@ -58,7 +72,7 @@ const MovieDetailPage = () => {
                 }
             })
 
-            const reviews_data = await axios.get(`/api/getReviews/${id}`, {
+            const reviews_data = await axios.get(`/comment/getComments/${id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -72,14 +86,15 @@ const MovieDetailPage = () => {
                 }
             })
 
-            const getLike = await axios.get(`/api/getlike/${id}`, {
+            const getLike = await axios.get(`/likeapi/getlike/${id}`, {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'authtoken': localStorage.getItem('token')
                 }
             });
 
-            setIsLike(getLike.data.like);
+            setIsLike(getLike.data.success);
             setResults(res.data);
             setReviews(reviews_data.data);
             setRecommendation(recommendation_data.data);
@@ -124,16 +139,18 @@ const MovieDetailPage = () => {
                             <div className="d-flex my-2">
 
                                 {
-                                    results.media_type !== 'tv' && <p className="borderBox mx-2 mb-0 releaseData text-white fs-6"><NewReleasesIcon /> {results.release_date}</p>
+                                    results.media_type !== 'tv' && <p className="borderBox mx-2 mb-0 releaseData text-white fs-6"><CalendarMonthIcon /> {results.release_date}</p>
                                 }
 
                                 <span className="rating borderBox mx-2 text-white d-flex justify-content-center align-items-center">
                                     <img className="mx-1" src="../images/imdb.png" alt="icon by icon8" /> {results.vote_average} ratings
                                 </span>
 
-                                {
-                                    localStorage.getItem('token') ? <button onClick={handleLike} className="mx-2 like_button text-white cursor-pointer"> {isLike ? <FavoriteIcon sx={{ color: 'red' }} /> : <FavoriteBorderIcon />}</button> : <></>
-                                }
+                                <form action="" method="POST" onSubmit={handleLike}>
+                                    {
+                                        localStorage.getItem('token') ? <button type="submit" className="mx-2 like_button text-white cursor-pointer"> {isLike ? <FavoriteIcon sx={{ color: 'red' }} /> : <FavoriteBorderIcon />}</button> : <></>
+                                    }
+                                </form>
                             </div>
                             <p className="overview pe-lg-3 text-white">{results.overview}</p>
                         </div>
@@ -175,7 +192,7 @@ const MovieDetailPage = () => {
                                 if (e.type !== "Featurette") {
                                     return (
                                         <div key={i} className="iframe_box mx-2">
-                                            <iframe width="450" height="350" src={`https://www.youtube.com/embed/${e.key}`} title="YouTube video player" frameBorder={0} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                                            <iframe src={`https://www.youtube.com/embed/${e.key}`} title="YouTube video player" frameBorder={0} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                                         </div>
                                     )
                                 }
@@ -186,21 +203,46 @@ const MovieDetailPage = () => {
                     </div>
                 </div>
 
-                <div className="reviews mt-2 text-poppins text-white">
+                <div className="reviews mt-2 py-1 text-poppins text-white">
                     <p className="text-center h2 mt-2 fw-bolder">Reviews</p>
                     <hr className="bg-white mt-0" />
-                    {
-                        reviews.map((review, i) => {
-                            const url = `${review.author_details.avatar_path}`
 
-                            return (
-                                <div key={i} className="review_container mt-2 p-2 mx-4">
-                                    <p className="author"><img className="profile mx-1" src={url.substring(1, url.length - 1)} alt="" />{review.author}</p>
-                                    <p className="content text-capitalize">{review.content}</p>
-                                </div>
-                            )
-                        })
+                    {
+                        localStorage.getItem('token') &&
+                        <form onSubmit={commentSubmit} className="commenet_text_field d-flex justify-content-center align-items-center flex-column">
+                            <textarea placeholder="Comment....." name="comment_input" onChange={(e) => { setComment(e.target.value) }} id="comment" className="my-2" cols="80" rows="5"></textarea>
+                            <button type="submit" className="cp_btn text-white my-2">Comment</button>
+                        </form>
                     }
+
+                    <div className="reviews_section d-flex justify-content-center align-items-center flex-column">
+
+                        {
+                            reviews.length === 0 && <p>No Reviews Available! Please Login and add Your Review.</p>
+                        }
+
+                        {
+                            reviews.map((data, index) => {
+                                return (
+                                    <div key={index} className="review d-flex text-poppins mx-0 my-2">
+                                        <img className="mx-2" src="https://img.icons8.com/color/2x/circled-user-male-skin-type-7.png" alt="profile" />
+                                        <div className="text_conter border p-1 rounded">
+                                            <div className="top d-flex">
+                                                <p className="fw-bold mx-2">{data.user.username}</p>
+                                                <em className="fw-lighter mx-2" style={{ fontSize: '.7rem' }}>{new Date(data.date).toLocaleDateString("en-US", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</em>
+                                            </div>
+                                            <hr />
+                                            <div className="down">
+                                                <p className="text-justify">{data.message}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+
+
                 </div>
 
                 <div className="recommendation">

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
-import NewReleasesIcon from '@mui/icons-material/NewReleases';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -66,7 +66,7 @@ const Slider = () => {
                           <div className="d-flex">
 
                             {
-                              item.media_type !== 'tv' && <p className="borderBox mx-2 mb-0 releaseData text-white fs-6"><NewReleasesIcon /> {item.release_date}</p>
+                              item.media_type !== 'tv' && <p className="borderBox mx-2 mb-0 releaseData text-white fs-6"><CalendarMonthIcon /> {item.release_date}</p>
                             }
 
                             <span className="rating borderBox mx-2 text-white d-flex justify-content-center align-items-center">

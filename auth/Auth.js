@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const passwordHash = require('../middleware/passwordhash');
 const fetchUser = require('../middleware/fetchuser');
-const JWT_SECRET = "Mynameisdeepak";
+const JWT_SECRET = process.env.JWT_SECRET;
 
 router.post('/createUser', [
     body('username').isLength({ min: 3 }),
@@ -88,5 +88,7 @@ router.get('/getuser', fetchUser, async (req, res) => {
         res.status(500).send(error)
     }
 })
+
+
 
 module.exports = router;

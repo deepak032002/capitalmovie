@@ -33,7 +33,7 @@ const Header = () => {
           </div>
           <div className="col-6 d-flex align-items-center justify-content-end">
             <input type="checkbox" className="d-none" id="menu_trigger_btn" />
-            <label for="menu_trigger_btn" className="d-lg-none text-white cursor-pointer"><MenuIcon sx={{ fontSize: '2.5rem' }} /></label>
+            <label htmlFor="menu_trigger_btn" className="d-lg-none text-white cursor-pointer"><MenuIcon sx={{ fontSize: '2.5rem' }} /></label>
 
             <div className="list_wrapper text-poppins me-2">
               <ul className="p-0 m-0">
@@ -52,7 +52,7 @@ const Header = () => {
                 {
                   localStorage.getItem('token') ? <>
                     <li className="mx-lg-3 d-flex align-items-center">
-                      <NavLink className="text-white text-decoration-none" to="/favorite">Favorites</NavLink>
+                      <NavLink className="text-white text-decoration-none" to="/favorites">Favorites</NavLink>
                     </li>
                     <li className="mx-lg-3 d-flex align-items-center">
                       <button className="text-white cp_btn" onClick={handleLogout}>Log Out <LogoutIcon /></button>

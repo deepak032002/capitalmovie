@@ -325,6 +325,13 @@
   height: 100vh;
 }
 
+#comment {
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  padding: 0.4rem;
+}
+
 .cast {
   background-color: var(--box-color--);
   display: flex;
@@ -408,19 +415,18 @@
   background-color: var(--box-color--);
 }
 
-.review_container {
-  /* box-shadow: 0 0 10px 0 #fff; */
+#comment::-webkit-scrollbar {
+  display: none;
 }
 
-.review_container .content {
-  padding: 0 0 0 5rem;
-  text-align: justify;
-}
-
-.author .profile {
-  border-radius: 50%;
+.review img {
   height: 2rem;
   width: 2rem;
+  border-radius: 50%;
+}
+
+.popular_movie {
+  transform: translateY(3rem);
 }
 
 .popular_movie_box {

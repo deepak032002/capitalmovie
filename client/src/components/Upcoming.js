@@ -13,7 +13,6 @@ const Upcoming = () => {
     const [results, setResults] = useState([])
 
     const getData = async () => {
-        console.log('called getData');
 
         if (page >= 500) {
             setHasMore(false);
@@ -87,7 +86,7 @@ const Upcoming = () => {
                                         </>
                                     )
                                 }
-                                else{
+                                else {
                                     return null
                                 }
                             })
