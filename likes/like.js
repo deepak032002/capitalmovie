@@ -3,8 +3,6 @@ const router = express.Router();
 const Likes = require('../model/likemodel')
 const fetchUser = require('../middleware/fetchuser');
 
-
-
 router.post('/doLike/:id', fetchUser, async (req, res) => {
     try {
         const userId = await req.user;
@@ -48,6 +46,7 @@ router.post('/unLike/:id', fetchUser, async (req, res) => {
 router.get('/getlike/:id', fetchUser, async (req, res) => {
     let movieId = req.params.id;
     let userId = await req.user;
+    
     const dbres = await Likes.findOne({ movieId: movieId, userId: userId });
 
     if (dbres) {

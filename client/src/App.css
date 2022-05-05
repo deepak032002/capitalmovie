@@ -323,6 +323,8 @@
 .backdrop_image {
   box-shadow: inset 0 -26rem 10rem 0 #000000e5;
   height: 100vh;
+  background-position: center;
+  background-size: cover;
 }
 
 #comment {
@@ -330,6 +332,7 @@
   outline: none;
   border-radius: 10px;
   padding: 0.4rem;
+  width: 90%;
 }
 
 .cast {

@@ -64,6 +64,7 @@ const MovieDetailPage = () => {
     }
 
     useEffect(() => {
+
         const getData = async () => {
             const res = await axios.get(`/api/getAllInfo/${id}`, {
                 method: 'GET',
@@ -86,20 +87,23 @@ const MovieDetailPage = () => {
                 }
             })
 
-            const getLike = await axios.get(`/likeapi/getlike/${id}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'authtoken': localStorage.getItem('token')
-                }
-            });
+            if (localStorage.getItem('token')) {
+                
+                const getLike = await axios.get(`/likeapi/getlike/${id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'authtoken': localStorage.getItem('token')
+                    }
+                });
 
-            setIsLike(getLike.data.success);
+                setIsLike(getLike.data.success);
+            }
+
             setResults(res.data);
             setReviews(reviews_data.data);
             setRecommendation(recommendation_data.data);
         }
-
         getData();
     }, [id]);
 
@@ -210,7 +214,7 @@ const MovieDetailPage = () => {
                     {
                         localStorage.getItem('token') &&
                         <form onSubmit={commentSubmit} className="commenet_text_field d-flex justify-content-center align-items-center flex-column">
-                            <textarea placeholder="Comment....." name="comment_input" onChange={(e) => { setComment(e.target.value) }} id="comment" className="my-2" cols="80" rows="5"></textarea>
+                            <textarea placeholder="Comment....." name="comment_input" onChange={(e) => { setComment(e.target.value) }} id="comment" className="my-2" cols="75" rows="5"></textarea>
                             <button type="submit" className="cp_btn text-white my-2">Comment</button>
                         </form>
                     }

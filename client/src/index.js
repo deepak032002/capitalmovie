@@ -7,11 +7,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 ReactDOM.render(
-  <Router>
-    <React.StrictMode>
+  <React.StrictMode>
+    <Router>
       <App />
-    </React.StrictMode>
-  </Router>,
+    </Router>
+  </React.StrictMode>,
   document.getElementById('root')
 );
 

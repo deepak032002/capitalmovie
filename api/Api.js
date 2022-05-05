@@ -7,23 +7,17 @@ const apiConfig = require('./apiConfig');
 router.get('/getTrendingMovie', async (req, res) => {
     const trendind_video_url = `${apiConfig.base_url}trending/movie/week?api_key=${process.env.API_KEY}`
     try {
-
         const res_data = await axios.get(trendind_video_url);
-
         res.status(200).json({ data: res_data.data.results.slice(0, 10) });
-
     } catch (error) {
         res.status(500).send(error);
     }
-
 })
 
-router.get('/getVideo/:videoId', async (req, res) => {
-    const movie_id = req.params.videoId;
-
+router.get('/getVideo/:movieId', async (req, res) => {
+    const movie_id = req.params.movieId;
     try {
         const fetched_video = await axios.get(`${apiConfig.base_url}movie/${movie_id}/videos?api_key=${process.env.API_KEY}`);
-
         res.send(fetched_video.data)
     } catch (error) {
         res.status(500).send(error)
