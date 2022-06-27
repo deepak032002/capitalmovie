@@ -20,7 +20,7 @@ const Search = () => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                query: query,
+                query: query.trim().split(" ").join("+"),
                 page: page
             }
         })

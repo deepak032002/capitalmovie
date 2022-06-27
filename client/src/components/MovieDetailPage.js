@@ -88,7 +88,7 @@ const MovieDetailPage = () => {
             })
 
             if (localStorage.getItem('token')) {
-                
+
                 const getLike = await axios.get(`/likeapi/getlike/${id}`, {
                     method: 'GET',
                     headers: {
@@ -123,7 +123,7 @@ const MovieDetailPage = () => {
                                 <p className={`position-absolute left-0 bottom-0 text-white text-center w-100 text-capitalize bg-${new Date(results.release_date) <= new Date() ? 'success' : 'danger'} mb-0`}>{
                                     new Date(results.release_date) <= new Date() ? 'released' : 'unreleased'
                                 }</p>
-                                <img src={`https://image.tmdb.org/t/p/w500${results.poster_path}`} alt="poster_image" />
+                                <img src={`https://image.tmdb.org/t/p/w500${results.poster_path}`} loading="lazy" alt="poster_image" />
                             </div>
                         </div>
 
@@ -147,7 +147,7 @@ const MovieDetailPage = () => {
                                 }
 
                                 <span className="rating borderBox mx-2 text-white d-flex justify-content-center align-items-center">
-                                    <img className="mx-1" src="../images/imdb.png" alt="icon by icon8" /> {results.vote_average} ratings
+                                    <img className="mx-1" src="../images/imdb.png" loading="lazy" alt="icon by icon8" /> {results.vote_average} ratings
                                 </span>
 
                                 <form action="" method="POST" onSubmit={handleLike}>
@@ -174,7 +174,7 @@ const MovieDetailPage = () => {
                                             <div className="overlay position-absolute h-100 w-100 d-flex flex-column justify-content-center align-items-center text-white">
                                                 <p className="mb-0 h5">{e.original_name}</p>
                                             </div>
-                                            <img src={`https://image.tmdb.org/t/p/w500${e.profile_path}`} alt="profile of cast" />
+                                            <img src={`https://image.tmdb.org/t/p/w500${e.profile_path}`} loading="lazy" alt="profile of cast" />
                                         </div>
                                     )
                                 }
@@ -229,7 +229,7 @@ const MovieDetailPage = () => {
                             reviews.map((data, index) => {
                                 return (
                                     <div key={index} className="review d-flex text-poppins mx-0 my-2">
-                                        <img className="mx-2" src="https://img.icons8.com/color/2x/circled-user-male-skin-type-7.png" alt="profile" />
+                                        <img className="mx-2" src="https://img.icons8.com/color/2x/circled-user-male-skin-type-7.png" loading="lazy" alt="profile" />
                                         <div className="text_conter border p-1 rounded">
                                             <div className="top d-flex">
                                                 <p className="fw-bold mx-2">{data.user.username}</p>

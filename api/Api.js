@@ -7,7 +7,7 @@ const apiConfig = require('./apiConfig');
 router.get('/getTrendingMovie', async (req, res) => {
     const trendind_video_url = `${apiConfig.base_url}trending/movie/week?api_key=${process.env.API_KEY}`
     try {
-        const res_data = await axios.get(trendind_video_url);
+        const res_data = await axios.get(trendind_video_url); 
         res.status(200).json({ data: res_data.data.results.slice(0, 10) });
     } catch (error) {
         res.status(500).send(error);
@@ -107,8 +107,8 @@ router.get('/getAllInfo/:id', async (req, res) => {
     let movie_id = req.params.id;
     try {
 
-        const url = `${apiConfig.base_url}movie/${movie_id}?api_key=${process.env.API_KEY}&language=en-US&append_to_response=credits`
-        const videos_url = `${apiConfig.base_url}movie/${movie_id}/videos?api_key=${process.env.API_KEY}&language=en-US`
+        const url = `${apiConfig.base_url}movie/${movie_id}?api_key=${process.env.API_KEY}&append_to_response=credits,watch/providers`
+        const videos_url = `${apiConfig.base_url}movie/${movie_id}/videos?api_key=${process.env.API_KEY}`
 
         const fetch_complete_data = await axios.get(url, {
             method: 'GET',
@@ -229,7 +229,7 @@ router.get('/getCompleteUpcomingList/', async (req, res) => {
 router.get('/search', async (req, res) => {
     try {
 
-        const search_url = `${apiConfig.base_url}search/movie?api_key=${process.env.API_KEY}&language=en-US&query=${req.headers.query}&page=${req.headers.page}&include_adult=false&sort_by=popularity.desc`
+        const search_url = `${apiConfig.base_url}search/movie?api_key=${process.env.API_KEY}&query=${req.headers.query}&page=${req.headers.page}&include_adult=false&sort_by=popularity.desc`
 
         const searched_item = await axios.get(search_url, {
             method: 'GET',

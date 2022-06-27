@@ -6,11 +6,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper";
-
+import Custommodal from './Custommodal';
 
 
 const Slider = () => {
   const [data, setData] = useState([]);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const getPopularMovie = async () => {
 
     let res = await axios.get('/api/getTrendingMovie', {
@@ -78,7 +82,13 @@ const Slider = () => {
                           <div className="btns">
                             <NavLink to={`/infopage/${item.id}`} className="d-inline-block text-center text-white text-decoration-none mx-3">More Info</NavLink>
                             {
-                              item.media_type !== 'tv' && <button data-bs-toggle="modal" data-bs-target={`#modal${item.id}`} className="text-decoration-none mx-3">Watch Trailer</button>
+                              item.media_type !== 'tv' && <button data-bs-toggle="modal" data-bs-target={`#${item.id}-id`} className="text-decoration-none mx-3">Watch Trailer</button>
+                            }
+
+                            {
+                              item.media_type !== 'tv' && <>
+                                <Custommodal id={`${item.id}-id`} />
+                              </>
                             }
                           </div>
                         </div>

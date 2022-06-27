@@ -11,6 +11,7 @@ import Favorite from './components/Favorite'
 import { Route, Routes, Navigate } from 'react-router-dom'
 
 function App() {
+
   return (
     <>
       <div className="cp_bg_color">

@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom'
 import axios from 'axios'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import CircularProgress from './CircularProgress';
-import Loader from './Loader';
 
 const List = (props) => {
 
@@ -70,7 +69,7 @@ const List = (props) => {
                                         <div className="cp_movie_card" key={i}>
                                             <NavLink to={`/infopage/${e.id}`}>
                                                 <CircularProgress percent={e.vote_average} />
-                                                <img src={`https://image.tmdb.org/t/p/w500${e.poster_path}`} alt="card" />
+                                                <img src={`https://image.tmdb.org/t/p/w500${e.poster_path}`} loading="lazy" alt="card" />
                                             </NavLink>
                                         </div>
                                     )
